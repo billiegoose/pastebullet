@@ -1,0 +1,9 @@
+{
+  "push": {
+    "body": "BODY",
+    "source_device_iden": "PBDEVICE",
+    "source_user_iden": "PBUSER",
+    "type": "clip"
+  },
+  "type": "push"
+}
