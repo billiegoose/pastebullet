@@ -1,5 +1,6 @@
 #!/bin/bash
-cd $(dirname "$BASH_SOURCE")
+DIR=$(dirname $(readlink -f "$BASH_SOURCE"))
+cd "$DIR"
 mkdir -p config
 TMP=$(mktemp -d)
 function finish {
