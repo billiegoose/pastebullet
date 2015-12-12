@@ -10,9 +10,32 @@ trap finish EXIT
 # Read in the pbuser and pbdevice
 PBUSER=$(jshon -e iden -u < config/user.json)
 PBDEVICE=$(jshon -e iden -u < config/device.json)
+
+if ! [[ -t 0 ]] ; then
+    BODY=$(</dev/stdin)
+else
+    BODY=${BODY:-$1}
+fi
+
+if [[ "$BODY" == "" ]] ; then
+    cat <<EOT
+Usage:
+    pastebullet "Some text"
+
+Alternate usage:
+    echo "Some text" | pastebullet
+
+To Install:
+    Add 'PBTOKEN' environment variable
+    Go to the pastebullet directory and run setup.sh
+    Add pastebullet/bin to your PATH
+EOT
+    exit
+fi
+
 # Format JSON payload
 jshon -e push \
-    -s "$1" -i body \
+    -s "$BODY" -i body \
     -s "$PBUSER" -i source_user_iden \
     -s "$PBDEVICE" -i source_device_iden \
     -p \
